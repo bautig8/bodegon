@@ -1,0 +1,184 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(135deg, #5a3e2b, #3b2a1f);
+    color: #2b1a10;
+}
+
+/* HEADER */
+header {
+    background-color: #5a2d0c;
+    text-align: center;
+    padding: 20px;
+}
+
+header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 55px;
+    margin: 0;
+    letter-spacing: 2px;
+    color: #f5e6d3;
+}
+
+header p {
+    font-family: 'Merriweather', serif;
+    font-size: 20px;
+    margin-top: 10px;
+    color: #f5e6d3;
+}
+
+/* NAV */
+nav {
+    background-color: #8b4513;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: white;
+    margin: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+    font-size: 14px;
+}
+
+/* PORTADA */
+.portada {
+    text-align: center;
+    padding: 40px;
+}
+
+h2 {
+    color: #f5e6d3;
+    text-align: center;
+    margin-top: 40px;
+    position: relative;
+}
+
+h2::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: #c69c6d;
+    margin: 10px auto;
+}
+
+/* MENU */
+.menu {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+section {
+    padding: 30px;
+}
+
+/* PLATO */
+.plato {
+    background-color: #fdf5e6;
+    border-radius: 10px;
+    padding: 15px;
+    width: 100%;
+    max-width: 300px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: aparecer 0.5s ease;
+}
+
+.plato:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+
+.plato h3 {
+    margin: 0;
+    color: #5a2d0c;
+}
+
+/* BOTON */
+.btn-wsp {
+    display: block;
+    margin-top: 10px;
+    margin-left: auto;
+    background-color: #25D366;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-wsp:hover {
+    background-color: #1ebe5d;
+    transform: scale(1.05);
+}
+
+/* CANTIDAD */
+.cantidad {
+    width: 60px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+/* CARRITO */
+#carrito {
+    background-color: #fdf5e6;
+    padding: 20px;
+    margin: 30px auto;
+    border-radius: 10px;
+    text-align: center;
+    color: #2b1a10;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+#carrito h2 {
+    color: #5a2d0c;
+}
+
+#lista-carrito {
+    list-style: none;
+    padding: 0;
+}
+
+#lista-carrito li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+#lista-carrito button {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 3px 6px;
+}
+
+#total {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* ANIMACION */
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Bodegón Tiro Federal</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Merriweather&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <h1>BODEGÓN TIRO FEDERAL</h1>
+    <p>Comida casera como en casa</p>
+</header>
+
+<nav>
+    <a href="#">Inicio</a>
+    <a href="#">Menú</a>
+    <a href="#">Nosotros</a>
+    <a href="#">Contacto</a>
+</nav>
+
+<div class="portada">
+    <h2>Bodegón Tiro Federal</h2>
+</div>
+
+<section>
+
+    {% for categoria, platos in menu.items() %}
+        <h2>{{ categoria }}</h2>
+
+        <div class="menu">
+            {% for plato in platos %}
+                <div class="plato">
+                    <h3>{{ plato.nombre }}</h3>
+                    <p>${{ plato.precio }}</p>
+
+                    <input type="number" value="1" min="1" class="cantidad">
+
+                    <button onclick="agregarAlCarrito('{{ plato.nombre }}', this)" class="btn-wsp">
+                        Agregar al carrito
+                    </button>
+                </div>
+            {% endfor %}
+        </div>
+
+    {% endfor %}
+
+</section>
+
+<!-- CARRITO -->
+<div id="carrito">
+    <h2>🛒 Tu pedido</h2>
+    <ul id="lista-carrito"></ul>
+    <p id="total">Total: $0</p>
+
+    <button onclick="enviarPedido()" class="btn-wsp">
+        Enviar pedido por WhatsApp
+    </button>
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+let carrito = {};
+let precios = {
+    "Ravioles caseros": 7000,
+    "Spaghetti": 6500,
+    "Milanesa con papas": 8000,
+    "Asado": 12000,
+    "Coca Cola": 2000,
+    "Vino de la casa": 5000
+};
+
+function agregarAlCarrito(nombre, boton) {
+    let cantidad = boton.parentElement.querySelector(".cantidad").value;
+    cantidad = parseInt(cantidad);
+
+    if (carrito[nombre]) {
+        carrito[nombre] += cantidad;
+    } else {
+        carrito[nombre] = cantidad;
+    }
+
+    mostrarCarrito();
+}
+
+function eliminarProducto(nombre) {
+    delete carrito[nombre];
+    mostrarCarrito();
+}
+
+function mostrarCarrito() {
+    let lista = document.getElementById("lista-carrito");
+    let totalElemento = document.getElementById("total");
+    lista.innerHTML = "";
+
+    let total = 0;
+
+    for (let item in carrito) {
+        let li = document.createElement("li");
+
+        let subtotal = carrito[item] * precios[item];
+        total += subtotal;
+
+        li.innerHTML = `
+            ${item} x${carrito[item]} - $${subtotal}
+            <button onclick="eliminarProducto('${item}')">❌</button>
+        `;
+
+        lista.appendChild(li);
+    }
+
+    totalElemento.textContent = "Total: $" + total;
+}
+
+function enviarPedido() {
+    if (Object.keys(carrito).length === 0) {
+        alert("El carrito está vacío");
+        return;
+    }
+
+    let mensaje = "Hola, quiero pedir:\n";
+
+    for (let item in carrito) {
+        mensaje += "- " + item + " x" + carrito[item] + "\n";
+    }
+
+    mensaje += "\nTotal: $" + document.getElementById("total").textContent.replace("Total: $","");
+
+    let numero = "5493329692776";
+    let url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+
+    window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
